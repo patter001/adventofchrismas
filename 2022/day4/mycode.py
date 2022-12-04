@@ -14,8 +14,9 @@ def part1a():
     # a function or without repeating an opertion
     assignments = [
         #bool()
-        (   list(map(int,a[0].split("-"))),
-            list(map(int,a[1].split("-")))
+        (   
+            range(*list((map(int,a[0].split("-"))))),
+            range(*list(map(int,a[1].split("-"))))
         )
          for a in 
         [a for a in [l.split(",") for l in input.splitlines()]]
@@ -48,6 +49,23 @@ def part1b():
     overlaps = [ overlaps(*g) for g in all_groups]
     return sum(overlaps)
 
+def part2a():
+    # just curious if it could be done in one line but it is 2x as slow as 2b
+    return sum([
+        bool(   
+            set(range(*
+                [i+j for i,j in enumerate(map(int,a[0].split("-")))
+                ])) 
+                &
+            set(range(*
+                [i+j for i,j in enumerate(map(int,a[1].split("-")))
+                ])) 
+        )
+         for a in 
+        [a for a in [l.split(",") for l in input.splitlines()]]
+    ])
+
+
 def part2b():
     # more readable
     from collections import namedtuple
@@ -64,6 +82,7 @@ def part2b():
     def overlaps(group0,group1):
         return (
             (group0.min<=group1.min and group1.min<=group0.max)
+            #group1.min-group0.min>=0 and group0.max-group1.min>0
             or
             (group1.min<=group0.min and group0.min<=group1.max)
         )
@@ -72,4 +91,4 @@ def part2b():
     overlaps = [ overlaps(*g) for g in all_groups]
     return sum(overlaps)
 
-print(part2b())
+print(part2a())
