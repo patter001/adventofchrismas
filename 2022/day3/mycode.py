@@ -10,7 +10,7 @@ with open("input.txt") as f:
 # with open("part2_test_input.txt") as f:
 #     input = f.read()    
 
-DEBUG = 1
+DEBUG = 0
 # with open("input.txt") as f:
 #     input = f.read()
 
@@ -25,12 +25,11 @@ def part1():
         checkit = common.pop()
         # ugly one liner's
         priority = (ord(checkit.upper()) + 1) - ord("A") + (checkit.isupper())*26
-        # OR, dont do conversion do check
-        # priority = (ord(checkit) + 1) - (ord("A") if checkit.isupper() else ord("a")) + (checkit.isuper())*26    
+        #priority = (ord(checkit) + 1) - (ord("A") if checkit.isupper() else ord("a")) + (checkit.isupper())*26    
         priorities.append(priority)
         if DEBUG:
             print(f"{s}:{checkit}:{priority}")
-    print(sum(priorities))
+    return sum(priorities)
 
 def part2():
     rucksacks = input.splitlines()
@@ -54,4 +53,4 @@ def part2():
             continue
         check_group(group)
         group = []
-    print(sum(priorities))
+    return sum(priorities)
